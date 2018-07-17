@@ -1,0 +1,48 @@
+---
+valid:
+  version: 1
+  server:
+    domain: example.com
+    host: 0.0.0.0
+    port: 80
+    routes:
+    - path: "/info"
+      response:
+        render:
+          engine: pug
+          template: "./info.pug"
+          variables:
+          - domain
+          - port
+          - request.queries.username
+      request:
+        filter:
+          body:
+          - username
+          queries:
+          - isAdmin: true
+          headers:
+          - UserAgent
+    - path: "/file"
+      response:
+        file:
+          location: "./my_dog.jpg"
+        headers:
+        - Access-Control-Allow-Origin: "[request.queries.username].example.org"
+        gzip: true
+    - path: "/cgi"
+      response:
+        cgi:
+          runtime: node
+          script: cgi.js
+          variables:
+          - domain
+          - port
+          - username
+      request:
+        filter:
+          params:
+          - username
+    errors:
+    - statusCode: 404
+      text: test

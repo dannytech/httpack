@@ -1,0 +1,55 @@
+{
+  "name": "httpack",
+  "version": "1.0.0",
+  "description": "Simple config-generated webserver",
+  "repository": "git@github.com:dannytech/httpack.git",
+  "author": "dhellstern <dhellstern@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.3",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "standard": "^11.0.1",
+    "supertest": "^3.1.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "joi": "^13.4.0",
+    "js-yaml": "^3.12.0",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.10"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "test": "standard && nyc mocha --require babel-core/register tests/index.js",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-runtime",
+      "transform-async-to-generator"
+    ]
+  }
+}
