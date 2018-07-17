@@ -31,8 +31,7 @@
     "lodash": "^4.17.10"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack --mode development --watch",
+    "build": "babel lib/ -d dist/ --source-maps inline",
     "test": "standard && nyc mocha --require babel-core/register tests/index.js",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
